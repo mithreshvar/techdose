@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int rangeBitwiseAnd(int left, int right) {
+        if (left==right) return left;
+        int ans = 0, startPower = log(right)/log(2), endPower = (!left)?0:log(left)/log(2);
+        long range = (long)right-left+1;
+        int i=endPower, k = 1<<i;
+        for (; pow(2,i)>=range; --i) {
+            ans |= (left & k && right & k) ;
+            ans = ans<<1;
+            k = k>>1;
+        }
+        return ans<<(i);
+    }
+};
