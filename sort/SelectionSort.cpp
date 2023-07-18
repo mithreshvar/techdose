@@ -1,16 +1,15 @@
 class Solution {
 public:
     vector<int> sortArray(vector<int>& nums) {
-       //selection sort
        int l=nums.size();
        for(int i=0;i<l;i++){
-           int minIdx=i;
+           int m=i;
            for(int j=i+1;j<l;j++){
-               if(nums[j]<nums[minIdx]){
-                   minIdx=j;
+               if(nums[j]<nums[m]){
+                   m=j;
                }
            }
-           swap(nums[i],nums[minIdx]);
+           swap(nums[i],nums[m]);
        }
        return nums;
     }
