@@ -1,0 +1,17 @@
+class NumArray {
+public:
+    vector<int> nums;
+    int n;
+    NumArray(vector<int>& nums) {
+        n = nums.size(); 
+        for (int i=1; i<n; i++) {
+            nums[i] += nums[i-1];
+        }
+        this->nums = nums;        
+    }
+    
+    int sumRange(int left, int right) {
+        if (left == 0) return nums[right];
+        return nums[right] - nums[left-1];
+    }
+};
