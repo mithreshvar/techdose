@@ -1,0 +1,41 @@
+class Solution {
+public:
+    int n;
+    vector<int> num, arr, arr2;
+    void sumsub(int index, vector<int> &a, int end) {
+        int len = end-index;
+        for (int i=0; i<(1<<len); i++) {
+            int s = 0;
+            for (int j=0; j<len; j++) {
+                int v = 1<<j;
+                if ((i & v) != 0) s += num[j + index];
+            }
+            a.push_back(s);
+        }
+    }
+    int minAbsDifference(vector<int>& nums, int goal) {
+        num = nums;
+        n = nums.size(); int half = n/2, m = INT_MAX;
+        vector<int> arr1;
+        sumsub(0,arr1,half);
+        sumsub(half,arr2,n);
+        sort(arr2.begin(), arr2.end());
+        int arr2n = arr2.size();
+        for (int i=0; i<arr1.size(); i++) {
+            int x = arr1[i] - goal;
+            auto index = lower_bound(arr2.begin(), arr2.end(), -x);
+            if (index != arr2.end()) {
+                m = min (m, abs(*index +x));
+                auto index2 = index; index2++;
+                if (index2 != arr2.end()) {
+                    m = min (m, abs(*index2 +x));
+                } 
+            }
+            if (index != arr2.begin()) 
+            index = --index;
+            m = min (m, abs(*index +x));
+        }
+        cout<<"\n";
+        return m;
+    }
+};
